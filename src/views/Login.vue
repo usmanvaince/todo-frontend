@@ -44,7 +44,7 @@ export default defineComponent({
         router.push({name: 'TodoList'})
       } catch (error) {
         notification.notify({
-          title: error?.response?.data?.message || 'Failed to register',
+          title: error?.response?.data?.message || 'Failed to login',
           type: 'error'
         });
       }
