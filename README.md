@@ -21,4 +21,6 @@ npm run lint
 ```
 
 ### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+```
+Set the API link in .env or in utils/constant.js
+```
