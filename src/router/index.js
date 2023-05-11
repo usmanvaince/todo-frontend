@@ -2,6 +2,10 @@ import { createRouter, createWebHistory } from 'vue-router'
 
 const routes = [
     {
+        path: '/',
+        redirect: '/login'
+    },
+    {
         path: '/login',
         name: 'Login',
         component: () => import('../views/Login')
@@ -19,7 +23,7 @@ const routes = [
     {
         path: '/welcome',
         name: 'Welcome',
-        component: () => import('../views/Todo'),
+        component: () => import('../views/TodoList'),
         meta: { requiresAuth: true }
     }
 ]
