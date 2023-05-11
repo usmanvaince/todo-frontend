@@ -8,12 +8,14 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@kyvg/vue3-notification": "^2.9.0",
     "@vee-validate/rules": "^4.5.8",
     "@vuelidate/core": "^2.0.2",
     "@vuelidate/validators": "^2.0.2",
     "axios": "^1.4.0",
     "core-js": "^3.8.3",
     "pinia": "^2.0.36",
+    "v3-infinite-loading": "^1.2.2",
     "vee-validate": "^4.5.8",
     "vue": "^3.2.13",
     "vue-router": "^4.1.6"

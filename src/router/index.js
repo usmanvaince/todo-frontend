@@ -1,9 +1,11 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import { useAuthStore } from '@/store/auth/authStore'
 
 const routes = [
     {
         path: '/',
-        redirect: '/login'
+        name: 'Welcome',
+        component: () => import('../views/Welcome')
     },
     {
         path: '/login',
@@ -21,9 +23,21 @@ const routes = [
         component: () => import('../views/VerifyEmail')
     },
     {
-        path: '/welcome',
-        name: 'Welcome',
+        path: '/todo-list',
+        name: 'TodoList',
         component: () => import('../views/TodoList'),
+        meta: { requiresAuth: true }
+    },
+    {
+        path: '/todos/new',
+        name: 'NewTodo',
+        component: () => import('../views/TodoForm'),
+        meta: { requiresAuth: true }
+    },
+    {
+        path: '/todos/:id/edit',
+        name: 'EditTodo',
+        component: () => import('../views/TodoForm'),
         meta: { requiresAuth: true }
     }
 ]
@@ -31,6 +45,18 @@ const routes = [
 const router = createRouter({
     history: createWebHistory(),
     routes
+})
+
+router.beforeEach((to, from, next) => {
+    const authStore = useAuthStore()
+
+    if (to.meta.requiresAuth && !authStore.isLoggedIn) {
+        next('/')
+    } else if (to.path === '/' && authStore.isLoggedIn) {
+        next('/todo-list')
+    } else {
+        next()
+    }
 })
 
 export default router

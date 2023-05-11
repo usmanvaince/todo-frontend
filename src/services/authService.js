@@ -1,31 +1,25 @@
-import axios from 'axios'
-import { API_URL } from '@/utils/constant';
+import axiosInstance from '@/utils/axiosInstance';
 
 export default {
-    async register({ first_name, last_name, email, password }) {
-        const response = await axios.post(`${API_URL}/register`, {
-            first_name,
-            last_name,
+    async register({ email, password, password_confirmation }) {
+        const response = await axiosInstance.post('/register', {
             email,
-            password
+            password,
+            password_confirmation
         })
         return response.data
     },
 
     async verifyEmail(email, verification_code) {
-        const response = await axios.post(`${API_URL}/verify-email`, { email, verification_code})
+        const response = await axiosInstance.post('/verify', { email, verification_code})
         return response.data
     },
 
     async login({ email, password }) {
-        const response = await axios.post(`${API_URL}/login`, {
+        const response = await axiosInstance.post('/login', {
             email, password
         })
         return response.data
     },
 
-    async logout() {
-        const response = await axios.post(`${API_URL}/logout`)
-        return response.data
-    }
 }
