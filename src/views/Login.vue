@@ -11,7 +11,7 @@
         <label class="block font-bold mb-2" for="password">Password</label>
         <input class="px-4 py-2 border rounded-md w-full" type="password" v-model="form.password" required>
       </div>
-
+      <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded-md">Login</button>
     </form>
     <p class="mt-4">
       Don't have an account? <router-link to="/register" class="text-blue-500">Register</router-link>
@@ -19,41 +19,39 @@
   </div>
 </template>
 <script>
-import { defineComponent, reactive, ref } from 'vue'
+import { defineComponent, reactive } from 'vue'
 import { useNotification } from '@kyvg/vue3-notification'
 import { useRouter } from 'vue-router'
+import { useAuthStore } from '@/store/auth/authStore'
 import authService from '@/services/authService'
-
 
 export default defineComponent({
   name: 'Registration',
   setup() {
     const notification = useNotification()
-    const loading = ref(false)
     const router = useRouter()
     const form = reactive({
       email: '',
       password: '',
-    });
+    })
+
+    const authStore = useAuthStore()
 
     const handleSubmit = async () => {
       try {
-        loading.value = true;
-        await authService.login(form)
+        const { token } = await authService.login(form)
+        authStore.setToken(token)
         router.push({name: 'TodoList'})
       } catch (error) {
         notification.notify({
           title: error?.response?.data?.message || 'Failed to register',
           type: 'error'
         });
-      } finally {
-        loading.value = false;
       }
     }
 
     return {
       form,
-      loading,
       handleSubmit
     }
   }

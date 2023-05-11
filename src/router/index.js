@@ -39,6 +39,15 @@ const routes = [
         name: 'EditTodo',
         component: () => import('../views/TodoForm'),
         meta: { requiresAuth: true }
+    },
+    {
+        path: '/logout',
+        name: 'Logout',
+        beforeEnter: (to, from, next) => {
+            const authStore = useAuthStore()
+            authStore.logout()
+            next('/')
+        }
     }
 ]
 

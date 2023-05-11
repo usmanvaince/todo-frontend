@@ -12,11 +12,9 @@ export const useAuthStore = defineStore({
             localStorage.setItem(STORAGE_KEY, token)
             this.token = token
         },
-        async loadToken() {
-            const token = localStorage.getItem(STORAGE_KEY)
-            if (token) {
-                this.token = token
-            }
+        async logout() {
+            localStorage.removeItem(STORAGE_KEY)
+            this.token = null
         },
     },
     getters: {

@@ -2,7 +2,8 @@
 
 ## Project setup
 ```
-npm install
+1. Clone the repo from https://github.com/usmanvaince/todo-frontend.git
+2. npm install
 ```
 
 ### Compiles and hot-reloads for development
